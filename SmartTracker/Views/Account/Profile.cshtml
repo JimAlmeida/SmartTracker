@@ -2,32 +2,17 @@
 @{
     ViewData["Title"] = "User Profile";
 }
-
-<div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
-    <!-- Mask -->
-    <span class="mask bg-gradient-default opacity-8"></span>
-    <!-- Header container -->
-    <div class="container-fluid d-flex align-items-center">
-        <div class="row">
-            <div class="col-lg-7 col-md-10">
-                <h1 class="display-2 text-white">Hello @Model.Name</h1>
-                <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-                <a href="#!" class="btn btn-neutral">Edit profile</a>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Page content -->
-<div class="container-fluid mt--6">
+<div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-xl-4 order-xl-2">
+        <div class="col-xl-4 order-xl-1">
             <div class="card card-profile">
                 <img src="../assets/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
                 <div class="row justify-content-center">
                     <div class="col-lg-3 order-lg-2">
                         <div class="card-profile-image">
                             <a href="#">
-                                <img src="../assets/img/theme/team-4.jpg" class="rounded-circle">
+                                <img src=@Model.ImageURL class="rounded-circle">
                             </a>
                         </div>
                     </div>
@@ -59,13 +44,13 @@
                     </div>
                     <div class="text-center">
                         <h5 class="h3">
-                            Jessica Jones<span class="font-weight-light">, 27</span>
+                            @Model.FirstName @Model.LastName<span class="font-weight-light">, 27</span>
                         </h5>
                         <div class="h5 font-weight-300">
-                            <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                            <i class="ni location_pin mr-2"></i>@Model.City, @Model.Country
                         </div>
                         <div class="h5 mt-4">
-                            <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                            <i class="ni business_briefcase-24 mr-2"></i>@Model.JobRole
                         </div>
                         <div>
                             <i class="ni education_hat mr-2"></i>University of Computer Science
@@ -74,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-8 order-xl-1">
+        <div class="col-xl-8 order-xl-2">
             <div class="card">
                 <div class="card-header">
                     <div class="row align-items-center">
@@ -94,13 +79,13 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-username">Username</label>
-                                        <input type="text" id="input-username" class="form-control" placeholder="Username" value="lucky.jesse">
+                                        <input type="text" id="input-username" class="form-control" placeholder="Username" value=@Model.Username>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-email">Email address</label>
-                                        <input type="email" id="input-email" class="form-control" placeholder="jesse@example.com">
+                                        <input type="email" id="input-email" class="form-control" placeholder=@Model.EmailAddress>
                                     </div>
                                 </div>
                             </div>
@@ -108,13 +93,13 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-first-name">First name</label>
-                                        <input type="text" id="input-first-name" class="form-control" placeholder="First name" value="Lucky">
+                                        <input type="text" id="input-first-name" class="form-control" placeholder="First name" value="@Model.FirstName">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-last-name">Last name</label>
-                                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="Jesse">
+                                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="@Model.LastName">
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +112,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-address">Address</label>
-                                        <input id="input-address" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+                                        <input id="input-address" class="form-control" placeholder="Home Address" value=@Model.Address type="text">
                                     </div>
                                 </div>
                             </div>
@@ -135,19 +120,19 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-city">City</label>
-                                        <input type="text" id="input-city" class="form-control" placeholder="City" value="New York">
+                                        <input type="text" id="input-city" class="form-control" placeholder="City" value=@Model.City>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-country">Country</label>
-                                        <input type="text" id="input-country" class="form-control" placeholder="Country" value="United States">
+                                        <input type="text" id="input-country" class="form-control" placeholder="Country" value=@Model.Country>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-country">Postal code</label>
-                                        <input type="number" id="input-postal-code" class="form-control" placeholder="Postal code">
+                                        <label class="form-control-label" for="input-country">State/Province</label>
+                                        <input type="number" id="input-postal-code" class="form-control" placeholder="State/Province" value=@Model.StateOrProvince>
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +143,7 @@
                         <div class="pl-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">About Me</label>
-                                <textarea rows="4" class="form-control" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                                <textarea rows="4" class="form-control" placeholder="A few words about you ...">@Model.AboutMe</textarea>
                             </div>
                         </div>
                     </form>
@@ -193,21 +178,3 @@
         </div>
     </footer>
 </div>
-<!--<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <h2>@ViewData["Title"].</h2>
-
-            <div class="col-md-2">
-                <img src="@Model.ProfileImage"
-                        alt="" class="img-rounded img-responsive" />
-            </div>
-            <div class="col-md-4">
-                <h3>@Model.Name</h3>
-                <p>
-                    <i class="glyphicon glyphicon-envelope"></i> @Model.EmailAddress
-                </p>
-            </div>
-        </div>
-    </div>
-</div>-->

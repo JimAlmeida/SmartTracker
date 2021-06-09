@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using SmartTracker.Models.DTOs;
+using SmartTracker.Models.DAL;
 using System.Linq;
 using System.Security.Claims;
+using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 
 namespace SmartTracker.Controllers
 {
@@ -29,7 +32,7 @@ namespace SmartTracker.Controllers
         [Authorize]
         [HttpGet]
         public IActionResult Profile()
-        {   
+        {
             /*
              1 - Create a more comprehensive model
              2 - Create the table in the Azure DB
@@ -38,12 +41,18 @@ namespace SmartTracker.Controllers
              5 - Map the query to the model
              6 - Pass the model to the view
              */
-            return View(new UserModel()
-            {
-                Name = User.Identity.Name,
-                EmailAddress = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
-                ProfileImage = User.Claims.FirstOrDefault(c => c.Type == "picture")?.Value
-            });
+            var sql_statement= new SQLStatement<UserModel>(_table: "UserInfo").ReadSTMT(where_column: "EmailAddress");
+            
+            var model_for_query = new UserModel(){
+                EmailAddress = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value
+            };
+
+            List<UserModel> queries = SQLDispatcher<UserModel>.Read(model_for_query, sql_statement);
+            
+            if (queries.Count > 1) 
+                return View("Error");
+            else 
+                return View(queries[0]);
         }
 
         [Authorize(Roles = "Admin")]
